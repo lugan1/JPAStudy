@@ -5,7 +5,7 @@
              version="3.1">  <!-- JPA 버전을 지정한다. JPA 3.1 사용 -->
     <persistence-unit name="testUnit"> <!-- persistence-unit 이름을 지정한다. -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> <!-- JPA 구현체를 지정한다. -->
-        <class>com.example.studyjpa.Entity.Member</class><!-- 엔티티 클래스를 지정한다. -->
+        <class>com.example.studyjpa.entity.Member</class><!-- 엔티티 클래스를 지정한다. -->
 
         <properties>
             <!-- DB Driver 설정 (필수) -->
@@ -30,8 +30,15 @@
             <!-- JPA 표준에 맞춘 새로운 키 생성 전략 사용 -->
             <property name="hibernate.id.new_generator_mappings" value="true"/>
 
-            <!-- 애플리케이션 실행 시점에 데이터베이스 테이블 자동 생성 -->
+            <!-- JDBC batch size 설정 -->
+            <property name="hibernate.jdbc.batch_size" value="10"/>
+
+            <!-- 어플리케이션 생성시 테이블 초기화 -->
 <!--            <property name="hibernate.hbm2ddl.auto" value="create"/>-->
+
+            <!-- naming strategy 설정 -->
+            <property name="hibernate.physical_naming_strategy" value="org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy"/>
+
         </properties>
     </persistence-unit>
 </persistence>

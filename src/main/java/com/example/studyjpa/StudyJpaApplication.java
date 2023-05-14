@@ -1,16 +1,15 @@
 package com.example.studyjpa;
 
-import com.example.studyjpa.Entity.Member;
+import com.example.studyjpa.entity.Member;
 import jakarta.persistence.*;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class StudyJpaApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(StudyJpaApplication.class, args);
-        //test();
+        //SpringApplication.run(StudyJpaApplication.class, args);
+        test();
     }
 
     public static void test() {
@@ -22,16 +21,8 @@ public class StudyJpaApplication {
         EntityTransaction transaction = manager.getTransaction();
         transaction.begin();
         try {
-            String name = "name22";
-
-            String jpql = "select m from Member m where m.name = ?1";
-            TypedQuery<Member> query = manager.createQuery(jpql, Member.class); //JPQL 생성
-            query.setParameter(1, name); //:name 파라미터에 name 변수를 바인딩한다.
-            Member member = query.getSingleResult(); //단건 조회
-
-            System.out.println("id = " + member.getId()); //id = 124
-            System.out.println("name = " + member.getName()); //name = name22
-
+            //jpql(manager);
+            insert(manager);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback(); //문제가 발생하면 롤백한다.
@@ -40,6 +31,24 @@ public class StudyJpaApplication {
         }
 
         factory.close(); //어플리케이션이 종료되면 factory를 닫는다.
+    }
+
+
+
+    public static void insert(EntityManager manager) {
+
+        //manager.persist(member);
+    }
+
+    public static void jpql(EntityManager manager){
+        String name = "name22";
+
+        String jpql = "";
+        //String jpql = "select m from Member m where m.name = ?1";
+        TypedQuery<Member> query = manager.createQuery(jpql, Member.class); //JPQL 생성
+        query.setParameter(1, name); //:name 파라미터에 name 변수를 바인딩한다.
+        Member member = query.getSingleResult(); //단건 조회
+
     }
 
 }
