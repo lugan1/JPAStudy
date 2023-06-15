@@ -2,10 +2,18 @@ package com.example.studyjpa.entity;
 
 import com.example.studyjpa.enumeration.OrderStatus;
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicInsert
+@ToString
 public class Order extends BaseColumn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

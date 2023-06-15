@@ -1,16 +1,27 @@
 package com.example.studyjpa.entity;
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
+@Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicInsert
+@ToString
 public class Member extends BaseColumn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MEMBER_ID")
+    @Column(name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Order> order;
 
 
@@ -20,33 +31,17 @@ public class Member extends BaseColumn {
     private String city;
     private String street;
     private String zipcode;
-    public Member() {
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Member member = (Member) o;
+        return getId() != null && Objects.equals(getId(), member.getId());
     }
 
-    public Member(String name, String city, String street, String zipcode) {
-        this.name = name;
-        this.city = city;
-        this.street = street;
-        this.zipcode = zipcode;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getZipcode() {
-        return zipcode;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

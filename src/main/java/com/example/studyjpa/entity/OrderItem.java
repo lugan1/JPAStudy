@@ -1,8 +1,16 @@
 package com.example.studyjpa.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
+@Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicInsert
+@ToString
 public class OrderItem extends BaseColumn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,34 +23,4 @@ public class OrderItem extends BaseColumn {
     private int orderPrice;
 
     private int count;
-
-    public OrderItem() {
-    }
-
-    public OrderItem(long orderId, long itemId, int orderPrice, int count) {
-        this.orderId = orderId;
-        this.itemId = itemId;
-        this.orderPrice = orderPrice;
-        this.count = count;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public long getItemId() {
-        return itemId;
-    }
-
-    public int getOrderPrice() {
-        return orderPrice;
-    }
-
-    public int getCount() {
-        return count;
-    }
 }

@@ -2,9 +2,17 @@ package com.example.studyjpa.entity;
 
 import com.example.studyjpa.enumeration.DeliveryStatus;
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Table(name = "delivery")
+@Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicInsert
+@ToString
 public class Delivery extends BaseColumn {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,12 +29,5 @@ public class Delivery extends BaseColumn {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 }

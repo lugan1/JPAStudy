@@ -2,8 +2,16 @@ package com.example.studyjpa.entity;
 
 import com.example.studyjpa.entity.Item.Item;
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
+@Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicInsert
+@ToString
 public class CategoryItem extends BaseColumn {
     @Id @GeneratedValue
     @Column(name = "CATEGORY_ITEM_ID")
@@ -28,30 +36,5 @@ public class CategoryItem extends BaseColumn {
         this.item = item;
         item.getCategoryItems().add(this);
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setCategoryId(Category category) {
-        this.category = category;
-    }
-
-    public void setItemId(Item item) {
-        this.item = item;
-    }
-
 
 }
